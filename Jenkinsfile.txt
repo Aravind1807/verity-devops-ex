@@ -5,7 +5,7 @@ pipeline {
 		
 		// ******ALL CODE TO BE ADDED BELOW THIS COMMENT******
 		
-		//Code starts for stage Clean
+	//Code starts for stage Clean
         stage('Clean') {
             steps {
                 sh 'mvn clean'
@@ -13,13 +13,13 @@ pipeline {
         }
 		//Code ends for stage Clean
 		
-		//Code starts for stage PMD
-		stage('PMD') {
+		//Code starts for stage Compile
+		stage('Compile') {
             steps {
-                sh 'mvn site'
+                sh 'mvn compile'
             }
         }
-		//Code ends for stage PMD
+		//Code ends for stage Compile
 	
 	//Code starts for stage Unit Test
         stage('Unit Test') {
@@ -33,8 +33,35 @@ pipeline {
             }
         }
 		//Code ends for stage Unit Test
-	
-	
+		
+	//Code starts for stage Code Coverage
+		stage('Code Coverage') {
+            steps {
+                sh 'mvn jacoco:report'
+            }
+        }
+		//Code ends for stage Code Coverage
+		
+		//Code starts for stage Install
+		stage('Install') {
+            steps {
+                sh 'mvn install -DskipTests'
+            }
+        }
+		//Code ends for stage Install
+		
+		
+		//Code starts for stage Launch Tomcat Server
+		stage('Launch Tomcat Server') {
+            steps {
+                sh '/tmp/apache-tomcat-9.0.20/bin/startup.sh'
+            }
+        }
+		//Code ends for stage Launch Tomcat Server
+		
+		
+		
+		
 		// ******ALL CODE TO BE ADDED ABOVE THIS COMMENT******
     }
 }
