@@ -65,6 +65,16 @@ pipeline {
                 sh 'cp /var/jenkins_home/workspace/nayak/target/ExpenseApp-1.war /tmp/apache-tomcat-9.0.73/webapps'
             } 
         }
+	
+	//Code starts for stage System Test
+		stage('System Test') {
+            steps {
+				//Change git url below as per your forked github repository URL
+				git url: 'https://github.com/aravind1807/EMSystemTests-ex.git'
+            	sh 'mvn -Dtest=ExpenseManagerSystemTest test'
+            }
+        }
+		//Code ends for stage System Test
 		//Code ends for stage Deploy War on Tomcat Server
 		
 		
